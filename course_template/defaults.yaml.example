@@ -1,0 +1,21 @@
+# defaults.yaml
+# Pandoc defaults file for building a single PDF or HTML document
+# from all your course markdown files.
+# Usage: pandoc -d defaults.yaml -o output.html
+
+standalone: true
+toc: true
+toc-depth: 2
+number-sections: false
+
+metadata:
+  title: "Your Course Name"
+  date: "Semester Year"
+  # author: "Your Name"
+
+# List every .md file in the order you want them combined.
+input-files:
+  - Pages/syllabus.md
+  - Pages/course-overview.md
+  - Assignments/week-1-assignment.md
+  # Add more files in the order they should appear in the output...

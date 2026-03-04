@@ -1,0 +1,42 @@
+# course.yaml
+# This file defines the module structure and metadata for your Canvas course.
+# Run sync_modules.py to push this structure to Canvas.
+#
+# Types: SubHeader, Page, Assignment, Discussion, ExternalUrl
+# The title must match the first H1 heading in the corresponding .md file.
+# indent is optional (0 = module level, 1 = indented item).
+
+course_id: YOUR_COURSE_ID_HERE  # Canvas course ID (overrides COURSE_ID from .env if present)
+
+course_settings:
+  sync_state: true  # Toggle to enable/disable script actions
+
+modules:
+  - name: "Start Here"
+    published: true
+    items:
+      - title: "Syllabus"
+        type: Page
+        indent: 1
+      - title: "Course Overview"
+        type: Page
+        indent: 1
+
+      - title: "Resources"
+        type: SubHeader
+        indent: 0
+      - title: "Getting Started Guide"
+        type: Page
+        indent: 1
+
+  - name: "Week 1"
+    published: true
+    items:
+      - title: "Week 1 Overview"
+        type: Page
+      - title: "Week 1 Discussion"
+        type: Discussion
+      - title: "Week 1 Assignment"
+        type: Assignment
+
+  # Add more modules following the same pattern...

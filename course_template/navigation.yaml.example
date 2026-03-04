@@ -1,0 +1,20 @@
+# navigation.yml
+# Controls which tabs appear in your Canvas course nav and in what order.
+# Run sync_navigation.py to apply this to Canvas.
+#
+# Common built-in IDs: home, announcements, assignments, discussions,
+#                      grades, syllabus, modules, wiki, files, quizzes
+#
+# External tool IDs (e.g., Panopto, Zoom) are institution-specific.
+# To find yours: Canvas course Settings > Navigation tab, inspect the
+# element or check the Canvas API: GET /api/v1/courses/:id/tabs
+
+home_page_view: modules  # Options: modules, syllabus, assignments, wiki, feed
+navigation:
+  - id: home
+  - id: announcements
+  - id: assignments
+  - id: discussions
+  - id: grades
+  - id: syllabus
+  # - id: context_external_tool_XXXXX  # Replace XXXXX with your tool's ID

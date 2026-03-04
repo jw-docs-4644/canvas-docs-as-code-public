@@ -1,0 +1,24 @@
+# Credentials — never commit these (catch at any level in repo)
+.env
+**/.env
+!**/.env
+
+# Python
+venv/
+__pycache__/
+
+# Canvas sync state caches
+.sync_cache_*.json
+
+# Lock files (LibreOffice, etc.)
+.~lock*
+
+# Course content — these live in your course repo, not here
+# (Leading / anchors the pattern to the repo root, so course-template/ is unaffected)
+/Assignments/
+/Pages/
+/Discussions/
+/Rubrics/
+/Files/
+/About/
+/Out/
