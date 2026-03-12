@@ -1,7 +1,7 @@
 # Credentials — never commit these (catch at any level in repo)
-.env
 **/.env
-!**/.env
+**/.env.*
+!**/.env.example
 
 # Python
 venv/
