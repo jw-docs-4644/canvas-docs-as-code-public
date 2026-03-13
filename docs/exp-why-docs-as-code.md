@@ -73,7 +73,7 @@ Once the "source of truth" for your course lives in the text-based Markdown file
  `find . -type f \( -name '*.md' -o -name '*.yml' -o -name '*.yaml' \) -print0 \
   | xargs -0 sed -i -E 's/(grading_type:[[:space:]]*)letter_grade/\1points/g'`
 
-which would could be used to change the grading type for all of tour assignments from letter grade to points, you can simply tell your coding agent something like
+which would could be used to change the grading type for all of your assignments from letter grade to points, you can simply tell your coding agent something like
 
 `Change the grading type for everything in Assignemnts and Discussions from letter grade to points`
 
