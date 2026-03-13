@@ -7,7 +7,7 @@ from config_loader import load_canvas_config, load_course_id
 API_URL, API_KEY = load_canvas_config()
 API_URL = API_URL.rstrip('/')
 COURSE_ID = load_course_id()
-CSV_FILE = "Rubrics/rubrics.csv"
+CSV_FILE = "rubrics.csv"
 
 def get_existing_rubric_titles(headers):
     """Fetches titles of all rubrics already in the Course Bank."""

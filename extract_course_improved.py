@@ -157,11 +157,17 @@ def extract_all():
     # 2. Content
     print("\n📥 Step 2: Extracting Assignments, Pages, and Discussions...")
     for a in all_assignments:
+        if getattr(a, 'submission_types', []) == ['discussion_topic']:
+            continue
         md = html_to_md(getattr(a, 'description', ''))
+        rubric_title = None
+        if hasattr(a, 'rubric_settings') and a.rubric_settings:
+            rubric_title = a.rubric_settings.get('title')
         post = frontmatter.Post(
             f"# {a.name}\n\n{md}",
+            grading_type=getattr(a, 'grading_type', 'points'),
             points=getattr(a, 'points_possible', 0),
-            grading_type=getattr(a, 'grading_type', 'points')
+            rubric=rubric_title or "None"
         )
         with open(base_path / 'Assignments' / f"{sanitize(a.name)}.md", 'wb') as f:
             frontmatter.dump(post, f)
@@ -175,7 +181,21 @@ def extract_all():
 
     for d in course.get_discussion_topics():
         md = html_to_md(getattr(d, 'message', ''))
-        post = frontmatter.Post(f"# {d.title}\n\n{md}", published=d.published)
+        rubric_title = None
+        if hasattr(d, 'rubric_settings') and d.rubric_settings:
+            rubric_title = d.rubric_settings.get('title')
+        post = frontmatter.Post(
+            f"# {d.title}\n\n{md}",
+            points=getattr(d, 'points_possible', 0),
+            grading_type=getattr(d, 'grading_type', 'points'),
+            rubric=rubric_title or "None",
+            discussion_type=getattr(d, 'discussion_type', 'threaded'),
+            post_first=getattr(d, 'require_initial_post', False),
+            peer_reviews=getattr(d, 'peer_reviews', False),
+            automatic_peer_reviews=getattr(d, 'automatic_peer_reviews', False),
+            anonymous_peer_reviews=getattr(d, 'anonymous_peer_reviews', False),
+            peer_review_count=getattr(d, 'peer_review_count', 0)
+        )
         with open(base_path / 'Discussions' / f"{sanitize(d.title)}.md", 'wb') as f:
             frontmatter.dump(post, f)
 

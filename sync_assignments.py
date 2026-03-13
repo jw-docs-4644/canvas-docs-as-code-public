@@ -4,8 +4,10 @@ import frontmatter
 import re
 import json
 import hashlib
+import requests
 from canvasapi import Canvas
 from config_loader import load_canvas_config, load_course_id
+from validate_frontmatter import validate_metadata
 
 # 1. SETUP
 API_URL, API_KEY = load_canvas_config()
@@ -74,16 +76,23 @@ def sync_assignments():
         if not nice_title:
             nice_title = md_filename.replace(".md", "").replace("_", " ").title()
 
+        # Validate metadata
+        warnings = validate_metadata(post, nice_title, item_type="assignment")
+        for warning in warnings:
+            print(f"  [⚠️  WARN] '{nice_title}': {warning}")
+
         file_points = post.get('points', DEFAULT_POINTS)
         target_rubric = post.get('rubric', "None")
+        rubric_use_for_grading = post.get('rubric_use_for_grading', True)
 
         sub_types = post.get('submission_types', ['online_upload'])
-        
+
         # Include all relevant metadata in the hash
         check_data = {
             'title': nice_title,
             'points': file_points,
             'rubric': target_rubric,
+            'rubric_use_for_grading': rubric_use_for_grading,
             'content': post.content,
             'peer_reviews': post.get('peer_reviews', False),
             'file_types': post.get('file_types', []),
@@ -137,11 +146,23 @@ def sync_assignments():
         # --- 4. RUBRIC ASSOCIATION ---
         if target_rubric != "None" and target_rubric in canvas_rubrics:
             print(f"   -> Attaching Rubric: '{target_rubric}'")
+            # Delete any existing associations to prevent duplicates
+            ra_url = f"{API_URL}/api/v1/courses/{COURSE_ID}/rubric_associations"
+            ra_resp = requests.get(
+                ra_url,
+                headers={"Authorization": f"Bearer {API_KEY}"},
+                params={'association_type': 'Assignment', 'association_id': canvas_assignment.id}
+            )
+            existing_ras = ra_resp.json() if ra_resp.status_code == 200 else []
+            for ra in (existing_ras if isinstance(existing_ras, list) else []):
+                if ra.get('rubric_id') == canvas_rubrics[target_rubric]:
+                    requests.delete(f"{ra_url}/{ra['id']}", headers={"Authorization": f"Bearer {API_KEY}"})
+            # Create fresh association
             course.create_rubric_association(rubric_association={
                 'rubric_id': canvas_rubrics[target_rubric],
                 'association_id': canvas_assignment.id,
                 'association_type': 'Assignment',
-                'use_for_grading': True,
+                'use_for_grading': rubric_use_for_grading,
                 'purpose': 'grading'
             })
             # Re-verify points to prevent rubric override
