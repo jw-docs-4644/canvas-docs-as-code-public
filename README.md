@@ -1,32 +1,27 @@
 # Canvas Docs as Code
 
+Full documentation: at [doc-design.dev](https://www.doc-design.dev)
+
 ## Background
 
 The goal of this project is to be able to write an entire Canvas course using plain text editors to the greatest extent possible. It arose as I was redesigning my Advanced Technical Course to focus more on topic-based and structured authoring, with a heavy emphasis on writing in Markdown. Early in that process, I thought, "Wouldn't it be great if I could just push my course into Canvas and never have to click the mouse?" I stumled across the Canvas API, and after asking ChatGPT to help me understand Python and write the code, I was able to push a single HTML page to Canvas. 
 
 From there I was hooked, and with a great deal of help from ChatGPT, Gemini, and finally the Claude Coding Tool, I was able to build a set of scripts that makes it possible to write and push 99% of a  Canvas course from the terminal, with only a few final tweaks happening in in the Canvas Web interface after the course has been built.    
 
-## Why do this?
-
-My motivations for the project are three-fold: 
-
-1. Because it was an interesting project. 
-2. Because it helped me learn about Markdown for a class where I'd be teaching a lot of Markdown.
-3. Because I hate mousing around in Canvas. 
-
-And anwyays, I think it's kind of cool!
-
 ## How It Works
 
-The basic idea is this:
+This project lets you develop your course materials in plain text files on your local machine and then push them to your Canvas site using the Canvas API. Here's the basic workflow: 
 
-- You write your assignment prompts, discusion prompts, and course pages in Markdown, using any editor you like. 
-- You provide metadata such as grading type and points values  at the top of each item using YAML (Yet Anaother Markup Language) fields. 
-- You write your rubrics in a spreadheet program, using CSV (comma separated values). You *can* to this in a text editor, but I found it much easier to use a spreadsheet.
-- You write another YAML file to organize the modules for your class. 
-- Yet another YAML file determines the settings. 
+- Assignments, Discussions, and Pages
+   - You write your assignment prompts, discusion prompts, and course pages in Markdown, using any editor you like. 
+   - You provide metadata such as grading type and points values  at the top of each item using YAML (Yet Anaother Markup Language) fields. 
+- Rubrics
+   - You write your rubrics in a spreadheet program, using CSV (comma separated values). You *can* to this in a text editor, but I found it much easier to use a spreadsheet.
+- Modules and Course Settings
+   - You write another YAML file to organize the modules for your class. 
+   - Yet another YAML file determines the settings. 
 
-You run python scripts to push all of your content into Canvas. 
+You run the python scripts in this repository to push all of your content into Canvas.
 
 ### Prerequisites
 
@@ -34,7 +29,7 @@ Here's what you'll need to make this work:
 
 - A basic knowledge of how python works, or a willingess to muddle through. 
 - A similar level of knowledge or antitude about git and Github.
-- A willingness to learn Markdown.  
+- A willingness to learn Markdown and yaml. 
 
 ### Setup
 
@@ -128,3 +123,13 @@ In addition to the main content-pushing scripts described above, there are sever
 ## Project Structure
 
 ## Contributing
+## Why do this?
+
+My motivations for the project are three-fold: 
+
+1. Because it was an interesting project. 
+2. Because it helped me learn about Markdown for a class where I'd be teaching a lot of Markdown.
+3. Because I hate mousing around in Canvas. 
+
+And anwyays, I think it's kind of cool!
+
