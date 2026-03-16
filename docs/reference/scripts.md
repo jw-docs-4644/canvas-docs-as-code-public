@@ -8,7 +8,7 @@ These scripts push content from your local course folders to Canvas.
 | ------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------ |
 | sync_all.sh         | Bash script that runs all of the python scripts to publish the course                                                                                  |
 | sync_assignments.py | Pushes everything from the Assignments folder to Canvas                                                                                                |
-| sync_discussions.py | Pushes everything form the Discussions folder to Canvas                                                                                                |
+| sync_discussions.py | Pushes everything from the Discussions folder to Canvas                                                                                                |
 | sync_files.py       | Pushes all of the files in the Files folder to Canvas                                                                                                  |
 | sync_pages.py       | Pushes everything from the Pages folder to Canvas                                                                                                      |
 | sync_modules.py     | Pushes the organization mapped out in course.yaml to be populated as modules in Canvas.                                                                |
