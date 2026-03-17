@@ -45,6 +45,41 @@ def load_course_id(course_yaml_path="course.yaml"):
     )
 
 
+def load_zotero_config(course_yaml_path="course.yaml"):
+    """
+    Load Zotero API configuration from .env and collection ID from course.yaml.
+
+    Args:
+        course_yaml_path: Path to course.yaml file
+
+    Returns:
+        tuple: (API_KEY, USER_ID, COLLECTION_ID)
+
+    Raises:
+        ValueError: If required credentials are missing
+    """
+    load_dotenv()
+    api_key = os.getenv("ZOTERO_API_KEY")
+    user_id = os.getenv("ZOTERO_USER_ID")
+
+    if not api_key or not user_id:
+        raise ValueError("Missing ZOTERO_API_KEY or ZOTERO_USER_ID in .env")
+
+    collection_id = None
+    if os.path.exists(course_yaml_path):
+        try:
+            with open(course_yaml_path, "r") as f:
+                config = yaml.safe_load(f)
+                if config and "zotero_collection_id" in config:
+                    val = config["zotero_collection_id"]
+                    if val and val != "YOUR_COLLECTION_ID_HERE":
+                        collection_id = str(val)
+        except Exception as e:
+            print(f"Warning: Could not read zotero_collection_id from {course_yaml_path}: {e}")
+
+    return api_key, user_id, collection_id
+
+
 def load_canvas_config():
     """
     Load Canvas API configuration from .env

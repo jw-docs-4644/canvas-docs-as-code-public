@@ -7,6 +7,7 @@
 # indent is optional (0 = module level, 1 = indented item).
 
 course_id: YOUR_COURSE_ID_HERE  # Canvas course ID (overrides COURSE_ID from .env if present)
+zotero_collection_id: YOUR_COLLECTION_ID_HERE  # Zotero collection ID for course readings (optional)
 
 course_settings:
   sync_state: true  # Toggle to enable/disable script actions
