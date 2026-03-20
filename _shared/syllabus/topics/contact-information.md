@@ -3,6 +3,7 @@
 -   Professor Welsh
 -   josh.welsh@cwu.edu
 -   Phone: 509-963-1549
+-   Samuelson 243G
 
 Please use email or the Canvas Inbox when communicating with me. If you leave a comment on an assignment, it is unlikely I will see it in a timely fashion, and I may not ever see it, given the large number of students and assignments I interact with each quarter.
 

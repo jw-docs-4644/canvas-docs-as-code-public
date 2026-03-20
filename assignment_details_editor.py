@@ -221,7 +221,7 @@ class AssignmentManagerGUI:
         self.status_label.config(text="Syncing...", fg="blue")
         self.root.update()
         canvas_rubrics = {r.title: r.id for r in self.course.get_rubrics()}
-        ISO_TIME = "T23:59:59Z"
+        ISO_TIME = "T06:59:00Z"
         update_count = 0
         for data in self.all_assignments_data:
             c_pts, c_rub = data['pts_var'].get().strip(), data['rubric_var'].get()

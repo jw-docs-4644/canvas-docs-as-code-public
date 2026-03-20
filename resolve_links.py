@@ -46,6 +46,35 @@ class LinkResolver:
             slug_name = self._to_slug(raw_name)
             key = f"files/{slug_name}.{ext}" if ext else f"files/{slug_name}"
             id_map[key] = f"/courses/{COURSE_ID}/files/{f.id}/download?wrap=1"
+
+        # Add filename-slug aliases for local content directories.
+        # Links in markdown files use filenames (e.g. Final_Project.md), but Canvas
+        # titles may have extra words (e.g. "Final Project: Major Audio Composition").
+        # This indexes each file by its filename slug so both resolve correctly.
+        for content_dir, content_type in [("Assignments", "assignments"), ("Pages", "pages"), ("Discussions", "discussions")]:
+            if not os.path.exists(content_dir):
+                continue
+            for dirpath, _, filenames in os.walk(content_dir):
+                for fname in filenames:
+                    if not fname.endswith('.md'):
+                        continue
+                    file_slug = self._to_slug(fname[:-3])  # strip .md
+                    alias_key = f"{content_type}/{file_slug}"
+                    if alias_key in id_map:
+                        continue  # already mapped exactly, no alias needed
+                    filepath = os.path.join(dirpath, fname)
+                    try:
+                        with open(filepath, 'r', encoding='utf-8') as fh:
+                            content = fh.read()
+                        m = re.search(r'^#\s+(.+)$', content, re.MULTILINE)
+                        if m:
+                            title_slug = self._to_slug(m.group(1).strip())
+                            title_key = f"{content_type}/{title_slug}"
+                            if title_key in id_map:
+                                id_map[alias_key] = id_map[title_key]
+                    except Exception:
+                        pass
+
         return id_map
 
     def resolve_html(self, html, container_name):

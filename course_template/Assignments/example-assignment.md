@@ -1,7 +1,7 @@
 ---
 points: 20
 grading_type: points          # options: points, percent, pass_fail, letter_grade
-rubric: "None"                # Name of a rubric from rubrics.csv, or "None"
+rubric: "None"                # Name of a rubric from rubrics.csv, or "None" Use quotation marks around rubric names or enclose in quotation marks. 
 submission_types:             # options: online_upload, online_text_entry, online_url, none
   - online_upload
 file_types:                   # only needed for online_upload

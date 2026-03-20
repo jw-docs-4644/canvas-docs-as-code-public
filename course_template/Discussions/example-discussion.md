@@ -1,7 +1,7 @@
 ---
 points: 10
 grading_type: points
-rubric: "None"                # Name of a rubric from rubrics.csv, or "None"
+rubric: "None"                # Name of a rubric from rubrics.csv, or "None" Use quotation marks around rubric names or enclose in quotation marks. 
 discussion_type: threaded     # options: threaded, side_comment
 post_first: false             # true = students must post before seeing replies
 peer_reviews: false
